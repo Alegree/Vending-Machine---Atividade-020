@@ -298,12 +298,9 @@ function showChange(changeAmount) {
 function stats() {
   const statisticsElement = document.getElementById('statistics');
 
-  // Filtra os produtos de interesse (Água, Tisana, Refrigerante)
   const filteredProducts = products.filter(product =>
     ['Água', 'Tisana', 'Refrigerante'].includes(product.name)
   );
-
-  // Obtém as quantidades vendidas de cada produto
   const data = [{
     labels: filteredProducts.map(product => product.name),
     values: filteredProducts.map(product => product.sales || 0),
@@ -317,7 +314,6 @@ function stats() {
     title: 'Estatísticas de Vendas',
   };
 
-  // Cria o gráfico usando Plotly
   Plotly.newPlot('statistics', data, layout);
 }
 
