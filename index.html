@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+  <title>Máquina de Vendas</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div id="contentor">
+    <div id="precos">
+      <h3>Preços (IVA não incluído)</h3>
+      <ul>
+        <li><strong>Água:</strong> 1,00€</li>
+        <li><strong>Tisana/Pleno:</strong> 1,50€</li>
+        <li><strong>Refrigerantes:</strong> 2,00€</li>
+      </ul>
+    </div>
+  <div id="vending-machine">
+    <div id="stock-area"></div>
+    <div class="produto-fila" id="fila-1"></div>
+    <div class="produto-fila" id="fila-2"></div>
+    <div class="produto-fila" id="fila-3"></div>
+
+    <div id="user-interface">
+      <div id="dinheiro-input">
+        <button onclick="adicionarDinheiro(0.05)">0.05€</button>
+        <button onclick="adicionarDinheiro(0.10)">0.10€</button>
+        <button onclick="adicionarDinheiro(0.20)">0.20€</button>
+        <button onclick="adicionarDinheiro(0.50)">0.50€</button>
+        <button onclick="adicionarDinheiro(1.00)">1.00€</button>
+        <button onclick="adicionarDinheiro(2.00)">2.00€</button>
+      </div>
+      <audio id="somCompra">
+        <source src="/sons/compra.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+      <audio id="somtalao">
+        <source src="/sons/talao.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+      <audio id="somavaria">
+        <source src="/sons/avaria.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+      <input type="text" id="nif-input" placeholder="Inserir NIF">
+      <div id="status"></div>
+      <div id="produto-comprado"></div>
+      <div id="vendas"></div>
+      <div id="produto"></div>
+      <div id="troco"></div>
+      <button onclick="gerarSurpresa()">Bebida Surpresa</button>
+      <div id="surpresa-tempo"></div>
+      <button onclick="random()">Carregar Máquina com quantidades de produtos aleatórios</button>
+      <button onclick="stats()">Mostrar Estatísticas de Vendas</button>
+      <button onclick="talao()">Imprimir Talão</button>
+      <div id="recibo-contentor">
+        <h2>Talão</h2>
+        <div id="recibo"></div>
+      </div>
+    </div>
+  </div>
+  <div id="statistics">
+    <canvas id="grafico" width="300" height="300"></canvas>
+  </div>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>

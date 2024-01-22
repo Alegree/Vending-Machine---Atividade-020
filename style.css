@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+body {
+  background-color: #f0f0f0;
+  font-family: 'Ubuntu', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#contentor {
+  display: flex;
+  align-items: center;
+}
+
+
+#vending-machine {
+  display: flex;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(7, auto);
+  flex-direction: column;
+  align-items: center;
+  background-color:#D7D2CB;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  flex: 2; 
+}
+
+.produto-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.shelf {
+  height: 100px;
+  width: 80px;
+  border: 1px solid #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+  border-radius: 5px;
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.shelf img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.shelf:hover {
+  background-color: #bbb;
+}
+
+
+#user-interface {
+  grid-column: span 6;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#dinheiro-input {
+  margin-bottom: 10px;
+}
+
+#dinheiro-input button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#dinheiro-input button:hover {
+  background-color: #ddd;
+  color: #333;
+}
+
+#nif-input {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#produto-comprado {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+#produto,
+#status,
+#vendas,
+#troco {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  background-color: #ddd;
+  color: #333;
+}
+
+#precos {
+  flex: 1; 
+  padding-right: 20px; 
+margin-right: 20px;
+}
+
+#precos h3 {
+  margin-bottom: 10px;
+}
+
+#precos ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#precos li {
+  margin-bottom: 8px;
+}
+
+#precos li strong {
+  margin-right: 10px;
+}
+
+#statistics {
+  margin-left: 5px;
+}
