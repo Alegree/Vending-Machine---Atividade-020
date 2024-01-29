@@ -48,6 +48,7 @@ let productsBought = [];
 let lastSurpriseDrinkTime = 0;
 const surpriseCooldown = 60000; 
 let surpriseCooldownTimer; 
+let currentRegion = '';
 
 function random() {
   products.forEach(product => {
@@ -125,16 +126,50 @@ function updateUI() {
   }
 }
 
+function chooseRegion(){
+  var regionInput = prompt("Digite a sua região: Continente, Madeira ou Açores")
+
+  if (regionInput) {
+  setRegion(regionInput)
+  } else {
+    alert('Região não suportada/encontrada. Vamos utilizar a região default')
+    setRegion(Continente)
+  }
+
+}
+
+function setRegion(regionInput) {
+
+  currentRegion = regionInput.toLowerCase();
+
+}
+
+
 function calculateIvaRate(productType) {
+  let defaultIvaRate = 0;
   switch (productType.toLowerCase()) {
     case 'água':
-      return 0.06;
+      defaultIvaRate = 0.06;
+      break
     case 'tisana':
-      return 0.13; 
+      defaultIvaRate = 0.13; 
+      break
     case 'refrigerante':
-      return 0.23; 
+      defaultIvaRate = 0.23; 
+      break;
     default:
-      return 0; 
+      break;
+  }
+
+  switch (currentRegion){
+  case 'continente':
+     return defaultIvaRate ;
+    case 'madeira':
+      return defaultIvaRate - 0.01; 
+    case 'açores':
+      return defaultIvaRate - 0.03; 
+    default:
+      break;
   }
 }
 
@@ -326,3 +361,4 @@ function adicionarDinheiro(amount) {
 }
 addProductsToMachine();
 updateShelfStatus();
+chooseRegion();
