@@ -29,7 +29,38 @@ const products = [
   { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
   { name: 'Refrigerante', type: 'Refrigerante', price: 2.00, stock: 10, ivaRate: 'normal' },
   { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
-  { name: 'Absinto', type: 'Surpresa', stock: 5, special: true },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
+  { name: 'Refrigerante', type: 'Refrigerante', price: 2.00, stock: 10, ivaRate: 'normal' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Refrigerante', type: 'Refrigerante', price: 2.00, stock: 10, ivaRate: 'normal' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Refrigerante', type: 'Refrigerante', price: 2.00, stock: 10, ivaRate: 'normal' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Refrigerante', type: 'Refrigerante', price: 2.00, stock: 10, ivaRate: 'normal' },
+  { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
+  { name: 'Refrigerante', type: 'Refrigerante', price: 2.00, stock: 10, ivaRate: 'normal' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Tisana', type: 'Tisana', price: 1.50, stock: 10, ivaRate: 'intermedia' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Refrigerante', type: 'Refrigerante', price: 2.00, stock: 10, ivaRate: 'normal' },
+  { name: 'Água', type: 'Água', price: 1.00, stock: 10, ivaRate: 'reduzida' },
+  { name: 'Absinto', type: 'Surpresa', special: true },
   { name: 'Gim', type: 'Surpresa', special: true },
   { name: 'Rum', type: 'Surpresa', special: true },
   { name: 'Whisky', type: 'Surpresa', special: true },
@@ -38,6 +69,7 @@ const products = [
   { name: 'Vinho', type: 'Surpresa', special: true },
   { name: 'Conhaque', type: 'Surpresa', special: true },
   { name: 'Tequila', type: 'Surpresa',special: true },
+
 
 ];
 products.forEach(product => product.sales = 0);
@@ -48,7 +80,7 @@ let productsBought = [];
 let lastSurpriseDrinkTime = 0;
 const surpriseCooldown = 60000; 
 let surpriseCooldownTimer; 
-let currentRegion = '';
+let currentRegion = 'Continente';
 
 function random() {
   products.forEach(product => {
@@ -61,12 +93,12 @@ function random() {
 }
 
 
-function addProductsToMachine() {
+function addProductsToMachine(productsPerRow = 10) {
   const rows = document.querySelectorAll('.produto-fila');
 
   rows.forEach((row, rowIndex) => {
-    for (let i = 0; i < 10; i++) {
-      const productIndex = rowIndex * 10 + i;
+    for (let i = 0; i < productsPerRow; i++) {
+      const productIndex = rowIndex * productsPerRow + i;
 
       if (productIndex < products.length) {
         const product = products[productIndex];
@@ -126,24 +158,28 @@ function updateUI() {
   }
 }
 
-function chooseRegion(){
-  var regionInput = prompt("Digite a sua região: Continente, Madeira ou Açores")
+function chooseRegion() {
+  const regionInput = prompt("Escreva a sua região: Continente, Madeira ou Açores");
 
   if (regionInput) {
-  setRegion(regionInput)
+    setRegion(regionInput);
   } else {
-    alert('Região não suportada/encontrada. Vamos utilizar a região default')
-    setRegion(Continente)
+    alert('Região não suportada/encontrada. Vamos utilizar a região default (Continente)');
+    setRegion('continente');
   }
-
 }
 
 function setRegion(regionInput) {
+  const validRegions = ['madeira', 'açores', 'continente'];
+  const lowercaseRegion = regionInput.toLowerCase();
 
-  currentRegion = regionInput.toLowerCase();
-
+  if (validRegions.includes(lowercaseRegion)) {
+    currentRegion = lowercaseRegion;
+  } else {
+    alert('Região não suportada/encontrada. Vamos utilizar a região default (Continente)');
+    currentRegion = 'continente';
+  }
 }
-
 
 function calculateIvaRate(productType) {
   let defaultIvaRate = 0;
@@ -347,6 +383,21 @@ function stats() {
 
   const layout = {
     title: 'Estatísticas de Vendas',
+  margin: { t: 50, b: 50, l: 50, r: 50 },
+    legend: {
+      x: 0.5,
+      y: 0.5,
+      traceorder: 'normal',
+      font: {
+        family: 'Ubuntu, sans-serif',
+        size: 12,
+        color: '#000',
+      },
+      bgcolor: '#E2E2E2',
+      bordercolor: '#FFFFFF',
+      borderwidth: 2,
+    },
+    paper_bgcolor: '#F8F8F8',
   };
 
   Plotly.newPlot('statistics', data, layout);
@@ -359,6 +410,6 @@ function adicionarDinheiro(amount) {
   moneyInMachine += amount;
   updateUI();
 }
+chooseRegion();
 addProductsToMachine();
 updateShelfStatus();
-chooseRegion();

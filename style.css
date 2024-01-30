@@ -37,8 +37,8 @@ body {
 }
 
 .shelf {
-  height: 100px;
-  width: 80px;
+  height: 60px;
+  width: 50px;
   border: 1px solid #888;
   display: flex;
   align-items: center;
@@ -50,6 +50,7 @@ body {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-right: 5px;
 }
 
 .shelf img {
@@ -77,7 +78,7 @@ body {
 #dinheiro-input button {
   margin: 5px;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   background-color: #fff;
   color: #333;
