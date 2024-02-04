@@ -219,7 +219,7 @@ function buy(productIndex) {
   if (getRandomNumber(1, 100) <= 5) {
     alert('Avaria na máquina!');
     somavaria.play();
-    
+
     if (simulateMachineFailure()) {
       alert('Avaria eminete. Dê uma pancada na máquina!');
       return;
@@ -276,20 +276,46 @@ function talao() {
 
   receiptElement.innerHTML = '';
 
+  let totalGasto = 0;
+
   if (customerNIF) {
     const nifInfo = document.createElement('div');
     nifInfo.textContent = `NIF do Cliente: ${customerNIF}`;
     receiptElement.appendChild(nifInfo);
   }
+  const productCount = {};
 
   productsBought.forEach(product => {
+    if (!productCount[product.name]) {
+      productCount[product.name] = 1;
+    } else {
+      productCount[product.name]++;
+    }
+
+    totalGasto += product.price;
+  });
+
+  Object.keys(productCount).forEach(productName => {
+    const count = productCount[productName];
+
     const productInfo = document.createElement('div');
-    productInfo.textContent = `${product.name}: ${product.price.toFixed(2)}€`;
+    productInfo.textContent = `${productName}: ${productsBought.find(p => p.name === productName).price.toFixed(2)}€`;
+
+    if (count > 1) {
+      productInfo.textContent += ` (x${count})`;
+    }
+
     receiptElement.appendChild(productInfo);
   });
 
+  const totalInfo = document.createElement('div');
+  totalInfo.innerHTML = `<strong>Total Gasto: ${totalGasto.toFixed(2)}€</strong>`;
+  receiptElement.appendChild(totalInfo);
+
   resetMachine();
 }
+
+
 
 function resetMachine() {
   totalSales = 0;
