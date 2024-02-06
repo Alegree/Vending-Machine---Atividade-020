@@ -68,7 +68,7 @@ const products = [
   { name: 'Cerveja', type: 'Surpresa', special: true },
   { name: 'Vinho', type: 'Surpresa', special: true },
   { name: 'Conhaque', type: 'Surpresa', special: true },
-  { name: 'Tequila', type: 'Surpresa',special: true },
+  { name: 'Tequila', type: 'Surpresa', special: true },
 
 
 ];
@@ -78,8 +78,8 @@ let totalSales = 0;
 let moneyInMachine = 0;
 let productsBought = [];
 let lastSurpriseDrinkTime = 0;
-const surpriseCooldown = 60000; 
-let surpriseCooldownTimer; 
+const surpriseCooldown = 60000;
+let surpriseCooldownTimer;
 let currentRegion = 'Continente';
 
 function random() {
@@ -91,7 +91,6 @@ function random() {
 
   updateShelfStatus();
 }
-
 
 function addProductsToMachine(productsPerRow = 10) {
   const rows = document.querySelectorAll('.produto-fila');
@@ -188,28 +187,26 @@ function calculateIvaRate(productType) {
       defaultIvaRate = 0.06;
       break
     case 'tisana':
-      defaultIvaRate = 0.13; 
+      defaultIvaRate = 0.13;
       break
     case 'refrigerante':
-      defaultIvaRate = 0.23; 
+      defaultIvaRate = 0.23;
       break;
     default:
       break;
   }
 
-  switch (currentRegion){
-  case 'continente':
-     return defaultIvaRate ;
+  switch (currentRegion) {
+    case 'continente':
+      return defaultIvaRate;
     case 'madeira':
-      return defaultIvaRate - 0.01; 
+      return defaultIvaRate - 0.01;
     case 'açores':
-      return defaultIvaRate - 0.03; 
+      return defaultIvaRate - 0.03;
     default:
       break;
   }
 }
-
-
 
 function buy(productIndex) {
   const product = products[productIndex];
@@ -231,10 +228,10 @@ function buy(productIndex) {
     const change = moneyInMachine - product.price;
     moneyInMachine = 0;
     totalSales += priceWithIva;
-    product.stock--; 
+    product.stock--;
     product.sales++;
 
-    productsBought.push({ name: product.name,  price: priceWithIva });
+    productsBought.push({ name: product.name, price: priceWithIva });
 
     updateShelfStatus();
     updateUI();
@@ -257,17 +254,17 @@ function buy(productIndex) {
 
 function simulateMachineFailure() {
   let attempts = 0;
-  const maxAttempts = 3;  
+  const maxAttempts = 3;
 
   while (attempts < maxAttempts) {
     if (getRandomNumber(1, 100) <= 50) {
       alert('Avaria resolvida com sucesso!');
-      return false; 
+      return false;
     }
     attempts++;
   }
 
-  return true;  
+  return true;
 }
 
 function talao() {
@@ -278,11 +275,19 @@ function talao() {
 
   let totalGasto = 0;
 
+  const customerNIF = prompt("Por favor, insira o seu NIF para o recibo (opcional):");
+
+  if (customerNIF && !validaNIF(customerNIF)) {
+    alert("O NIF inserido é inválido. Por favor, insira um NIF válido.");
+    return;
+  }
+
   if (customerNIF) {
     const nifInfo = document.createElement('div');
     nifInfo.textContent = `NIF do Cliente: ${customerNIF}`;
     receiptElement.appendChild(nifInfo);
   }
+
   const productCount = {};
 
   productsBought.forEach(product => {
@@ -314,8 +319,6 @@ function talao() {
 
   resetMachine();
 }
-
-
 
 function resetMachine() {
   totalSales = 0;
@@ -367,7 +370,7 @@ function startCooldownTimer() {
     } else {
       updateCooldownDisplay(remainingTime);
     }
-  }, 1000); 
+  }, 1000);
 }
 
 function updateCooldownDisplay(remainingTime) {
@@ -409,7 +412,7 @@ function stats() {
 
   const layout = {
     title: 'Estatísticas de Vendas',
-  margin: { t: 50, b: 50, l: 50, r: 50 },
+    margin: { t: 50, b: 50, l: 50, r: 50 },
     legend: {
       x: 0.5,
       y: 0.5,
@@ -431,10 +434,30 @@ function stats() {
 
 
 function adicionarDinheiro(amount) {
-  const nifInput = document.getElementById('nif-input');
-  customerNIF = nifInput.value; 
   moneyInMachine += amount;
   updateUI();
+}
+
+function validaNIF(value) {
+  value = value + "";
+
+  if (!/^[0-9]{9}$/.test(value)) return false;
+
+  if (!/^[123]|45|5/.test(value)) return false;
+
+  let tot =
+    value[0] * 9 +
+    value[1] * 8 +
+    value[2] * 7 +
+    value[3] * 6 +
+    value[4] * 5 +
+    value[5] * 4 +
+    value[6] * 3 +
+    value[7] * 2;
+  let div = tot / 11;
+  let mod = tot - parseInt(div) * 11;
+  let tst = mod == 1 || mod == 0 ? 0 : 11 - mod;
+  return value[8] == tst;
 }
 chooseRegion();
 addProductsToMachine();
